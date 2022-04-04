@@ -23,10 +23,6 @@ public class Movie {
         this.actors = actors;
         this.id = id;
     }
-    public static void main(String[] args){
-        Movie obj = new Movie("The Town", 5, "Https://google.com", 2011, "action", "tim asdf",
-                "asdfadsfadfadsfasdfasdfa", "asdfasdf,asdfadsf,asdfadsf,asdfasdf", 5);
-    }
 
     public String getTitle() {
         return title;
