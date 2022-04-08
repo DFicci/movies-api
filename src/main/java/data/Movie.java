@@ -2,9 +2,9 @@ package data;
 
 public class Movie {
     private String title;
-    private int rating;
+    private Double rating;
     private String poster;
-    private int year;
+    private Long year;
     private String genre;
     private String director;
     private String plot;
@@ -14,9 +14,9 @@ public class Movie {
     public Movie(String title, int rating, String poster, int year, String genre, String director, String plot,
                  String actors, int id){
         this.title = title;
-        this.rating = rating;
+        this.rating = (double) rating;
         this.poster = poster;
-        this.year = year;
+        this.year = (long) year;
         this.genre = genre;
         this.director = director;
         this.plot = plot;
@@ -47,11 +47,9 @@ public class Movie {
         this.title = title;
     }
 
-    public int getRating() {
-        return rating;
-    }
+    public Double getRating() { return rating; }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -63,11 +61,11 @@ public class Movie {
         this.poster = poster;
     }
 
-    public int getYear() {
+    public Long getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(long year) {
         this.year = year;
     }
 

@@ -1,18 +1,22 @@
 package main;
 
 import com.google.gson.Gson;
+import data.InMemoryMoviesDao;
 import data.Movie;
+import data.MoviesDao;
 
-import javax.servlet.ServletException;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Reader;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static data.MoviesDaoFactory.DAOType.IN_MEMORY;
+import static data.MoviesDaoFactory.getMoviesDao;
 
 @WebServlet(name = "MovieServlet", urlPatterns = "/movies/*")
 public class MovieServlet extends HttpServlet {
@@ -20,14 +24,18 @@ public class MovieServlet extends HttpServlet {
     int nextId = 1;
 
 
+
+    MoviesDao moviesDao = getMoviesDao(IN_MEMORY);
+
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         try {
             PrintWriter out = response.getWriter();
-            String movieString = new Gson().toJson(movies.toArray());
+            String movieString = new Gson().toJson(moviesDao.all());
             out.println(movieString);
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -59,7 +67,7 @@ public class MovieServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int targetId = getTargetIdFromURI(request.getRequestURI());
 
         Movie newMovie = new Gson().fromJson(request.getReader(), Movie.class);
@@ -91,6 +99,8 @@ public class MovieServlet extends HttpServlet {
                     movie.setRating(newMovie.getRating());
                 }
             }
+            PrintWriter out = response.getWriter();
+            out.println("movie updated");
         }
 
     }
@@ -102,11 +112,16 @@ public class MovieServlet extends HttpServlet {
 
         for (int i = 0; i < movies.size(); i++) {
             Movie movie = movies.get(i);
-            if (movie.getId() == targetId) {
-                movies.remove(i);
+            if(movie.getId() == targetId){
+                try {
+                    moviesDao.delete(i);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
+
         PrintWriter out = response.getWriter();
         out.println("movie deleted");
 
