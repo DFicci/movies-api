@@ -118,7 +118,6 @@ public class MovieServlet extends HttpServlet {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                break;
             }
         }
 
