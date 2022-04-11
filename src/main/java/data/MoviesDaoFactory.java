@@ -6,7 +6,7 @@ import data.MySqlMoviesDao;
 
 public class MoviesDaoFactory {
 
-    // private static Config config = new Config();
+    // private static data.Config config = new data.Config();
 
     public enum DAOType {MYSQL, IN_MEMORY}
 

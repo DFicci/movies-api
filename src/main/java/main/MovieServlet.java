@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import data.InMemoryMoviesDao;
 import data.Movie;
 import data.MoviesDao;
+import data.MySqlMoviesDao;
 
 
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +21,9 @@ import static data.MoviesDaoFactory.getMoviesDao;
 
 @WebServlet(name = "MovieServlet", urlPatterns = "/movies/*")
 public class MovieServlet extends HttpServlet {
-    ArrayList<Movie> movies = new ArrayList<>();
+    private MySqlMoviesDao dao = new MySqlMoviesDao();
+    private ArrayList<Movie> movies = new ArrayList<>();
     int nextId = 1;
-
 
 
     MoviesDao moviesDao = getMoviesDao(IN_MEMORY);
@@ -112,7 +113,7 @@ public class MovieServlet extends HttpServlet {
 
         for (int i = 0; i < movies.size(); i++) {
             Movie movie = movies.get(i);
-            if(movie.getId() == targetId){
+            if (movie.getId() == targetId) {
                 try {
                     moviesDao.delete(i);
                 } catch (SQLException e) {
