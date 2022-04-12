@@ -17,7 +17,7 @@ import java.util.List;
 
 public class InMemoryMoviesDao implements MoviesDao {
 
-    private HashMap<Integer, Movie> moviesMap = getMoviesMap();
+    private HashMap<Integer, Movie> moviesMap = new HashMap();
 
     @Override
     public List<Movie> all() throws SQLException {
@@ -55,15 +55,10 @@ public class InMemoryMoviesDao implements MoviesDao {
         }
     }
 
-    private HashMap<Integer, Movie> getMoviesMap() {
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get("/Users/vegetasrevenge/IdeaProjects/movies-backend/src/main/resources/movies.json"));
-            Type type = TypeToken.getParameterized(ArrayList.class, Movie.class).getType();
-            return getMoviesMap(new Gson().fromJson(reader, type));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    @Override
+    public void cleanUp() throws SQLException{
+        //come back to it
+
     }
 
     private HashMap<Integer, Movie> getMoviesMap(List<Movie> movies) {

@@ -2,26 +2,27 @@ package data;
 
 public class Movie {
     private String title;
-    private Double rating;
+    private String rating;
     private String poster;
-    private Long year;
+    private String year;
     private String genre;
     private String director;
     private String plot;
     private String actors;
     private int id;
 
-    public Movie(String title, int rating, String poster, int year, String genre, String director, String plot,
-                 String actors, int id){
+    public Movie(int id, String title, String rating, String poster, String year, String genre, String director, String plot,
+                 String actors){
+        this.id = id;
         this.title = title;
-        this.rating = (double) rating;
+        this.rating = String.valueOf(rating);
         this.poster = poster;
-        this.year = (long) year;
+        this.year = String.valueOf(year);
         this.genre = genre;
         this.director = director;
         this.plot = plot;
         this.actors = actors;
-        this.id = id;
+
     }
 
     @Override
@@ -47,9 +48,9 @@ public class Movie {
         this.title = title;
     }
 
-    public Double getRating() { return rating; }
+    public String getRating() { return rating; }
 
-    public void setRating(double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
@@ -61,16 +62,16 @@ public class Movie {
         this.poster = poster;
     }
 
-    public Long getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(long year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
     public String getGenre() {
-        return genre;
+        return this.genre;
     }
 
     public void setGenre(String genre) {
