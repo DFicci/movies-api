@@ -122,10 +122,10 @@ public class MySqlMoviesDao implements MoviesDao {
             changeMovie.setTitle(movie.getTitle());
         }
         if (movie.getYear() != null) {
-            changeMovie.setTitle(movie.getYear());
+            changeMovie.setYear(movie.getYear());
         }
         if (movie.getPoster() != null) {
-            changeMovie.setTitle(movie.getPoster());
+            changeMovie.setPoster(movie.getPoster());
         }
         if (movie.getRating() != null) {
             changeMovie.setRating(movie.getRating());
@@ -143,7 +143,7 @@ public class MySqlMoviesDao implements MoviesDao {
             changeMovie.setPlot(movie.getPlot());
         }
 
-        StringBuilder sql = new StringBuilder("UPDATE movies SET title =?, rating = ?, poster = ?, year = ?, genre = ?, director = ?, plot = ? WHERE id = ? ");
+        StringBuilder sql = new StringBuilder("UPDATE movies SET title =?, rating = ?, poster = ?, year = ?, genre = ?, director = ?, actors = ?, plot = ? WHERE id = ? ");
 
         PreparedStatement statement = connection.prepareStatement((sql.toString()));
         statement.setString(1, changeMovie.getTitle());
